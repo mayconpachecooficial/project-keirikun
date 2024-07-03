@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <title>ficha pdf</title>
+    <style>
+    * {
+        padding: 0;
+        margin: 0;
+      }
+
+      #principal {
+        height: 580px;
+        width: 100%;
+      }
+      #dircriton-main {
+        border-radius: 1px;
+        border: 5px solid lightgray;
+        height: 85%;
+
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: column;
+        -webkit-flex-direction: column;
+        -webkit-justify-content: space-around;
+        justify-content: space-around;
+        -webkit-align-items: center;
+        align-items: center;
+        font-size: 0.9rem;
+      }
+      .print_pages {
+        width: 210mm;
+        height: 297mm;
+        page-break-after: always;
+      }
+      .relative {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+      .block1 {
+        display: -webkit-flex;
+        display: flex;
+      }
+      .block {
+        display: -webkit-flex;
+        display: flex;
+      }
+
+      #titlemain {
+        background-color: #555555;
+        color: #333333;
+        height: 10%;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-justify-content: space-around;
+        justify-content: space-around;
+        margin-bottom: 1%;
+      }
+      #image {
+        height: 70px;
+        width: 80px;
+        margin-right: 10px;
+      }
+      #image-gym-name {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-align-items: center;
+        align-items: center;
+        margin-left: 500px;
+      }
+      #ficha-de-inscricao {
+        color: white;
+        font-size: 0.9rem;
+      }
+      #gym-name {
+        color: white;
+        font-size: 0.9rem;
+      }
+      .double-div-left {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: flex-start;
+        justify-content: flex-start;
+        -webkit-align-items: center;
+        align-items: center;
+        width: 50%;
+      }
+      .double-div-right {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: flex-end;
+        justify-content: flex-end;
+        -webkit-align-items: center;
+        align-items: center;
+        width: 50%;
+      }
+
+      .double-div-left-firt {
+        display: flex;
+        display: -webkit-flex;
+      }
+
+      .double-div-left-second2 {
+        width: 58%;
+      }
+
+      .double-div {
+        margin-left: 10px;
+      }
+
+      .signature {
+        display: -webkit-flex;
+        display: flex;
+        width: 700px;
+      }
+      #canvasDiv {
+        height: 150px;
+        width: 90%;
+        background-color: white;
+        border: 1px solid lightgray;
+        margin-left: 5%;
+      }
+      #confirmation-politc {
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: row;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-align-items: center;
+        align-items: center;
+
+        margin-top: 3%;
+      }
+      .single-div {
+        width: 60%;
+      }
+      #division-div {
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: row;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-align-items: center;
+        align-items: center;
+
+        margin-top: 10px;
+        font-size: 1rem;
+        width: 100%;
+      }
+
+      .border {
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: row;
+        -webkit-flex-direction: row;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-align-items: center;
+        align-items: center;
+        width: 800px;
+      }
+      /*==========inicio new============*/
+
+      #line-2 input {
+        width: 110%;
+        padding: 0;
+      }
+
+      #line-4 input {
+        width: 170%;
+      }
+
+      #line-5 input {
+        width: 80%;
+      }
+
+      #line-6 input {
+        width: 270%;
+      }
+      /*==========fim new============*/
+
+      #birth-title {
+        margin-left: 0px;
+      }
+      #birth {
+        width: 149px;
+      }
+
+      #gender-title {
+        margin-left: -0px;
+      }
+      #gender {
+        width: 230px;
+      }
+
+      #right1 {
+        margin-left: 10px;
+      }
+
+      #right3 {
+        width: 68%;
+      }
+
+      #right4 {
+        width: 80%;
+      }
+
+      /*---------------lefts-------------*/
+
+      .single-div-left {
+        width: 20%;
+      }
+
+      #language {
+        width: 98%;
+      }
+
+      #plan {
+        width: 63%;
+      }
+
+      #block1 {
+        margin-left: 60px;
+      }
+
+      #left {
+        width: 18%;
+      }
+
+      #canvas {
+        height: 150px;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body id="body">
+    <section id="principal" class="print_pages">
+      <div id="titlemain">
+        <div id="ficha-de-inscricao">Ficha de inscrição</div>
+        <div id="image-gym-name">
+          <div
+            id="image"
+            style="background-image: url('./image/ficha.png')"
+          ></div>
+          <div id="gym-name">
+            <b><i><%= gymname%></i></b>
+          </div>
+        </div>
+      </div>
+      <div id="dircriton-main">
+        <!-- linha 01 -->
+        <div id="line-1" class="border">
+          <div class="double-div-left">
+            <div class="double-div-left-firt">
+              <span id="in-date-title" class="block1">Data da inscrição:</span>
+            </div>
+            <div class="double-div-left-second">
+              <input id="in-date" class="double-div" value="<%= entryDate %>" />
+            </div>
+          </div>
+
+          <div class="double-div-right">
+            <span id="number-menber-title" class="block">Número do aluno:</span>
+            <input
+              id="number-menber"
+              maxlength="180"
+              id="languagen"
+              class="double-div"
+              value="<%= uuid %>"
+            />
+          </div>
+        </div>
+        <!-- linha 02 -->
+        <div id="line-2" class="border">
+          <span id="fullnametitle" class="single-div-left">Nome completo:</span>
+
+          <input class="single-div-right1" value="<%= nm_member %>" />
+        </div>
+        <!-- linha 03 -->
+        <div id="line-3" class="border">
+          <div class="double-div-left">
+            <div class="double-div-left-firt">
+              <span id="birth-title" class="block1">Data da nascimento:</span>
+            </div>
+            <div class="double-div-left-second">
+              <input id="birth" class="double-div" value="<%= birthday%>" />
+            </div>
+          </div>
+          <div class="double-div-right">
+            <span id="gender-title" class="block">Sexo:</span>
+            <input
+              id="gender"
+              maxlength="180"
+              id="languagen"
+              class="double-div"
+              value="<%= genero%>"
+            />
+          </div>
+        </div>
+        <!-- linha 04 -->
+        <div id="line-4" class="border">
+          <span id="adress-title" class="single-div-left">Endereço:</span>
+
+          <input id="adress" class="single-div-right2" value="<%= adress%>" />
+        </div>
+        <!-- linha 05 -->
+        <div id="line-5" class="border">
+          <span id="phone-title" class="single-div-left"
+            >Número de telefone:</span
+          >
+          <input id="phone" class="single-div-right3" value="<%= phone%>" />
+        </div>
+        <!-- linha 06 -->
+        <div id="line-6" class="border">
+          <span id="email-title" class="single-div-left">Email:</span>
+
+          <input id="email" class="single-div-right4" value="<%= email%>" />
+        </div>
+        <!-- linha 07 -->
+        <div id="line-7" class="border">
+          <div class="double-div-left">
+            <div class="double-div-left-firt">
+              <span id="language-title" class="block1">Idioma:</span>
+            </div>
+            <div class="double-div-left-second2">
+              <input id="language" class="double-div" value="<%= language%>" />
+            </div>
+          </div>
+          <div class="double-div-right">
+            <span id="plantitle" class="block">Plano:</span>
+            <input
+              id="plan"
+              maxlength="180"
+              id="languagen"
+              class="double-div"
+              value="<%= plan%>"
+            />
+          </div>
+        </div>
+
+        <div id="confirmation-politc">
+          <span
+            >✓Eu verifiquei as políticas da academia e estou de acordo com a
+            mesma</span
+          >
+        </div>
+        <div class="signature">
+          <div id="canvasDiv">
+            <img id="canvas" src="<%= signature%>" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="../plugin/package/dist/signature_pad.umd.min.js"></script>
+  </body>
+</html>

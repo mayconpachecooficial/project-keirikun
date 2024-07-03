@@ -1,0 +1,92 @@
+#options {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    /*  border: 1px solid lime; */
+    height: 50vh;
+}
+
+#options div {
+    /*   border: 1px solid red; */
+    height: 85px;
+    width: 90%;
+    border-radius: 5px;
+}
+
+#options div:hover {
+    transform: scaleY(1.1);
+    cursor: pointer;
+
+}
+
+.options li {
+    background-color: blueviolet;
+    width: 85px;
+    border-radius: 5px;
+    box-shadow: inset 0px -13px 8px rgba(0, 0, 0, 0.1);
+    margin: 5px 15px 5px 0px;
+}
+
+.options li a {
+    color: #fff !important;
+}
+
+#master-title {
+    color: #fff
+}
+
+.table {
+    font-size: 13px
+}
+
+#main-page {
+
+    margin-top: 8%;
+    /* height: 90vh */
+}
+
+@media screen and (max-width: 767px) {
+    #main-page {
+
+        margin-top: 15%;
+        /* height: 90vh */
+    }
+
+}
+
+/*icons*/
+.ico {
+    font-size: 25px;
+    background-color: gray;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    cursor: pointer
+}
+
+.btn-quit {
+    background: none;
+    width: 60px;
+    border: none;
+    color: #fff;
+    padding: 5px 0 5px 0;
+}
+
+.font-60 {
+    font-size: 60px;
+}
+
+.btn-shadow {
+    box-shadow: inset 0px -13px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-custom {
+    height: 33px;
+    font-size: 13px !important;
+    box-shadow: inset 0px -13px 8px rgba(0, 0, 0, 0.1);
+}
+
+.selected {
+    background-color: antiquewhite !important;
+}
