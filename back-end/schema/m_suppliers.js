@@ -1,5 +1,5 @@
-import Sequelize from 'sequelize';
-import database from '../db';
+const Sequelize = require('sequelize');
+const database = require('../db');
 
 const Suppliers = database.define('m_suppliers', {
     id: {
@@ -30,4 +30,4 @@ const Suppliers = database.define('m_suppliers', {
     }
 });
 
-export default Suppliers;
+module.exports = Suppliers;

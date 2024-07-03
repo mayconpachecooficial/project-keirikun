@@ -1,49 +1,55 @@
-import Sequelize from 'sequelize';
-import database from '../db';
+const Sequelize = require('sequelize');
+const database = require('../db');
 
-const RestManagers = database.define('rest_manager', {
+const Rest_manegers = database.define('rest_maneger', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    restId: {
+    rest_id: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    workStatus: {
+    work_status: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    pickupTime: {
+    pickup_time: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    cash: {
+    cach: {
+        unique: false,
         type: Sequelize.STRING(150),
         allowNull: false,
     },
-    bank: {
+  bank: {
+        unique: false,
         type: Sequelize.STRING(150),
         allowNull: false,
     },
     uber: {
+        unique: false,
         type: Sequelize.STRING(150),
         allowNull: false,
     },
-    square: {
+    squere: {
+        unique: false,
         type: Sequelize.STRING(150),
         allowNull: false,
     },
-    cash2: {
+    cach2: {
+        unique: false,
         type: Sequelize.STRING(150),
         allowNull: false,
     },
     caixa: {
+        unique: false,
         type: Sequelize.STRING(150),
         allowNull: false,
     }
 });
 
-export default RestManagers;
+module.exports = Rest_manegers;

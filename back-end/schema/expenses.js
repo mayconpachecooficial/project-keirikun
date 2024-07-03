@@ -1,5 +1,5 @@
-import Sequelize from 'sequelize';
-import database from '../db';
+const Sequelize = require('sequelize');
+const database = require('../db');
 
 const Expenses = database.define('expense', {
     id: {
@@ -61,4 +61,4 @@ const Expenses = database.define('expense', {
 
 });
 
-export default Expenses;
+module.exports = Expenses;

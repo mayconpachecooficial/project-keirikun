@@ -1,20 +1,22 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import path from 'path';
-import rout from './routs/Routes';
-
+const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
-
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const path = require('path');
+const port = process.env.PORT || 3000;;
+var rout = require('./routs/Routes');
 app.set('view engine', 'ejs');
 app.set('views', './views');
-
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static('public'));
+
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+
+ app.use(bodyParser.json());
+ // Express modules / packages
+
+ app.use(bodyParser.urlencoded({ extended: true }));
+ // Express modules / packages
 
 app.use('/', rout);
 app.use('/ejs', rout);
@@ -33,6 +35,8 @@ app.use('/pass', rout);
 app.use('/planget', rout);
 app.use('/lesson_after/:id', rout);
 
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
+
+
+app.listen(port, () => { // Listen on port 3000
+    console.log(`Listening! in port: ${port}`); // Log when listen success
 });

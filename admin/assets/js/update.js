@@ -1,4 +1,8 @@
-function update() {
+
+
+
+function update(event) {
+
     const id = localStorage.getItem("idselected");
     const name = document.querySelector('#name');
     const cpf = document.querySelector('#cpf');
@@ -9,13 +13,15 @@ function update() {
     Swal.showLoading();
 
     const data = {
-        id,
-        name: name.value,
-        cpf: cpf.value,
-        telefone: telefone.value,
-        email: email.value,
-        password: password.value,
+        "id": id,
+        "name": name.value,
+        "cpf": cpf.value,
+        "telefone": telefone.value,
+        "email": email.value,
+        "password": password.value,
+
     };
+
 
     const config = {
         method: "PUT",
@@ -26,7 +32,7 @@ function update() {
     const url = `${global.urlApi}/update/user/${id}`;
 
     fetch(url, config)
-        .then((response) => response.json())
+        .then((x) => x.json())
         .then((res) => {
             if (res.success) {
                 Swal.fire({
@@ -34,38 +40,48 @@ function update() {
                     icon: "success"
                 });
                 localStorage.setItem("idselected", false);
-                updateRefresh();
+                updateRefresh()
+
             }
-        });
+
+        })
+
 }
 
 function updateRefresh() {
+
     const id = localStorage.getItem("idselected");
     const name = document.querySelector('#name');
     const cpf = document.querySelector('#cpf');
     const telefone = document.querySelector('#telefone');
     const email = document.querySelector('#email');
     const password = document.querySelector('#pwd');
-    const url = `${global.urlApi}/update/user/${id}`;
 
-    fetch(url)
-        .then((response) => response.json())
+    fetch(`${url}/list/user/${id}`)
+        .then((x) => x.json())
         .then((res) => {
+
             name.value = res.message[0].user;
             cpf.value = res.message[0].cpf;
             telefone.value = res.message[0].telefone;
             email.value = res.message[0].email;
             password.value = res.message[0].password_user;
 
-            Swal.close();
-        });
+             Swal.close();
+
+        })
+
 }
+
 
 window.addEventListener('hashchange', () => {
     if (window.location.hash === "#/update") {
         Swal.showLoading();
         setTimeout(() => {
-            updateRefresh();
-        }, 3000);
+            updateRefresh()
+           
+        }, 3000)
     }
+
 });
+

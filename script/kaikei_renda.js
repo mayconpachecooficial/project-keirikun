@@ -1,60 +1,71 @@
+
 const bkUrl = global.urlApi;
-const accessmainserver = 'https://squid-app-ug7x6.ondigitalocean.app'; //メインサーバーのチェックアクセス先
+let accessmainserver = 'https://squid-app-ug7x6.ondigitalocean.app';　　//メインサーバーのチェックアクセス先
 let user;
 let password;
 let errormessage;
 let proccessKubun = 0;
 let paykubun = 0;
 let payStatus = 0;
-const workerid = sessionStorage.getItem("id");
-const menbername = sessionStorage.getItem("name");
+let workerid = sessionStorage.getItem("id");
+let menbername = sessionStorage.getItem("name");
 
 if (workerid == null || menbername == null) {
-  pagechange('loginadminrst');
+  pagechange('loginadminrst')
 }
-
+//let menbername = "Paulo Shigaki"
 document.getElementById('name-span').innerText = menbername;
-const today = new Date();
-const yyyy = today.getFullYear();
-const mm = ("0" + (today.getMonth() + 1)).slice(-2);
-const dd = ("00" + today.getDate()).slice(-2);
+var today = new Date();
+let yyyy = today.getFullYear();
+let mm = ("0" + (today.getMonth() + 1)).slice(-2);
+let dd = ("00" + today.getDate()).slice(-2);
 
-document.getElementById('calender-input').value = `${yyyy}-${mm}-${dd}`;
-document.getElementById('syunyu-select').style.background = "purple";
-document.getElementById('syunyu-select').style.color = "#fff";
+document.getElementById('calender-input').value = `${yyyy}-${mm}-${dd}`
+document.getElementById('syunyu-select').style = "background: purple; color: #fff"
 
 function process1(data) {
   if (data == 1) {
-    document.getElementById('keihi-select').style.background = "purple";
-    document.getElementById('syunyu-select').style.background = "#FFFFFF";
+    document.getElementById('keihi-select').style = "background: purple"
+    document.getElementById('syunyu-select').style = "background:#FFFFFF"
     proccessKubun = 1;
     window.location = `../index.html`;
   } else {
-    swallErrorOpen('まだ準備できていません');
+
+    //document.getElementById('syunyu-select').style = "background:#FF6928"
+    //document.getElementById('keihi-select').style = "background:#FFFFFF"
+    swallErrorOpen('まだ準備できていません')
+    //proccessKubun = 2
   }
 }
 
-function pagechange(data) {
+function pagechange(data) {//---------------------------------->
   window.location = `../views/${data}.html`;
 }
 
-async function savedata(dataState) {
-  const datainput = document.getElementById('calender-input').value;
-  const memo = document.getElementById('memo-pay').value;
-  const slectPay = document.getElementById('pay-select').value;
-  const valuePay = document.getElementById('value-input').value;
+async function savedata(dataState) {//data is pay status 1:paid,2:yet
+  /*   if (restid == null || workerid == null || menbername == null) {
+      pagechange('loginadminrst')
+    } */
+  let datainput = document.getElementById('calender-input').value;
+  let memo = document.getElementById('memo-pay').value;
+  let slectPay = document.getElementById('pay-select').value;
+  let valuePay = document.getElementById('value-input').value;
 
-  const paykubunt = localStorage.getItem("variavelPaykubun");
+
+  let paykubunt = localStorage.getItem("variavelPaykubun");
+
+
 
   if (paykubunt == 0) {
-    swallErrorOpen('科目を選択してください');
+    swallErrorOpen('科目を選択してください')
   } else if (datainput == "") {
-    swallErrorOpen('支払日を選択してください');
+    swallErrorOpen('支払日を選択してください')
   } else if (slectPay == "") {
-    swallErrorOpen('決済手段を選択してください');
+    swallErrorOpen('決済手段を選択してください')
   } else if (valuePay == "") {
-    swallErrorOpen('支払い金額を入力してください');
+    swallErrorOpen('支払い金額を入力してください')
   } else {
+
     const objForm = {
       name: "dev",
       description: memo,
@@ -63,22 +74,46 @@ async function savedata(dataState) {
       category: document.querySelector(`#type${paykubunt} span`).innerText,
       status: dataState,
       data_register: datainput
-    };
+    }
 
     saveToSql(objForm);
+
   }
+
 }
 
-async function makerequest(url, data) {
-  const request = await fetch(url, {
+async function makerequest3(url, data) {
+  console.log('in')
+  const request = await fetch(url, {//pegar todos dados do table de pagamentos //n]
     method: 'POST',
     body: JSON.stringify(data),
     headers: { "Content-type": "application/json; charset=UTF-8" }
-  });
-  return request.status;
+  })
+  return request.status
 }
 
-async function saveToSql(obj) {
+async function makerequest2(url, data) {
+  const request = await fetch(url, {//pegar todos dados do table de pagamentos //n]
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: { "Content-type": "application/json; charset=UTF-8" }
+  })
+  return request.JSON()
+}
+
+async function makerequestStatus(url, data) {
+  const request = await fetch(url, {//pegar todos dados do table de pagamentos //n]
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: { "Content-type": "application/json; charset=UTF-8" }
+  })
+  return request.status
+}
+async function makerequest(url) {
+  const request = await fetch(url)  //esperar aqui
+  return request.json()
+}
+async function saveToSql(obj) {//---------------------->
   Swal.fire({
     icon: "info",
     title: '登録中',
@@ -89,46 +124,51 @@ async function saveToSql(obj) {
     onBeforeOpen: () => {
       Swal.showLoading();
     }
-  });
+  })
 
   const config = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(obj)
-  };
+  }
 
   fetch(`${bkUrl}/new_renda/${workerid}`, config)
     .then((x) => x.json())
-    .then(() => {
+    .then((res) => {
       swal.close();
+      //swallSuccess();
+
       document.getElementById('memo-pay').value = '';
+
       document.getElementById('value-input').value = '';
 
       const countChildrens = document.querySelector('.category-main-div').children.length;
       for (let i = 1; i <= countChildrens - 1; i++) {
-        document.getElementById(`type${paykubun}`).style.background = "#FFFFFF";
-      }
-
-      if (res.success) {
+        document.getElementById(`type${paykubun}`).style = "background:#FFFFFF"
+      };
+      
+        if (res.success) {
         Swal.fire({
           title: "Good job!",
           html: `<h3>CÓD: ${res.message.id}</h3><p>Details: ${res.message.createdAt}</p>`,
           icon: "success"
         });
       }
-    });
+
+    })
 }
 
+
 function selectType(data, event) {
-  const childElement = event.currentTarget;
-  const parentElement = childElement.parentNode;
+  const childElement = event.currentTarget; // Elemento filho clicado
+  const parentElement = childElement.parentNode; // Elemento pai
 
-  const children = Array.from(parentElement.children);
-  const position = children.indexOf(childElement);
+  const children = Array.from(parentElement.children); // Lista de elementos filhos do pai
+  const position = children.indexOf(childElement); // Posição do elemento filho clicado
 
-  document.getElementById(`type${data}`).style.background = "purple";
+  document.getElementById(`type${data}`).style = "background: purple";
   paykubun = event.currentTarget.title;
-
+ 
   localStorage.setItem("variavelPaykubun", paykubun);
 
   const countChildrens = document.querySelector('.category-main-div').children.length;
@@ -137,9 +177,10 @@ function selectType(data, event) {
 
     } else {
       try {
-        document.querySelector('.category-main-div').children[i].style.background = "#FFFFFF";
+        document.querySelector('.category-main-div').children[i].style = "background: #FFFFFF";
       } catch (err) {
         //document.getElementById(`type${i}`).style = "background: #FFFFFF";
+
       }
     }
   }
@@ -154,7 +195,7 @@ function swallErrorOpen(data) {
     width: 500,
     html: `<span>${data}</span>`,
     customClass: "sweet-alert",
-  }).then(() => {
+  }).then((result) => {
 
   });
 }
@@ -167,27 +208,60 @@ async function swallSuccess() {
     timer: 2000,
     timerProgressBar: true,
     didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer);
-      toast.addEventListener('mouseleave', Swal.resumeTimer);
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
-  });
+  })
 
   Toast.fire({
     icon: 'success',
     title: 'Feito'
-  });
+  })
 }
 
-async function kanmaReplase() {
-  const data = document.getElementById('value-input');
-  if (data.value.length == 1 && data.value != "￥") {
+//nova validação
+/*async function kanmaReplase() {
+  let data = document.getElementById('value-input');
+  if (data.value.length === 1 && data.value !== "￥") {
     data.value = ("￥" + data.value);
   } else {
-    const numberAns = (data.value.slice(1)).replace(/[^0-9]/g, "");
-    const kanmaAns = numberAns.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+    let numero = data.value;
+    // Remove todos os caracteres que não são dígitos ou a vírgula
+    let numeroSemPontuacao = numero.replace(/[^\d,]/g, '');
+
+    // Remove a vírgula, se houver, para evitar duplicações
+    numeroSemPontuacao = numeroSemPontuacao.replace(/,/g, '');
+
+    // Verifica se não há dígitos após a remoção dos caracteres inválidos
+    if (numeroSemPontuacao === '') {
+      data.value = '';
+      return;
+    }
+
+    // Divide o número na parte esquerda e direita da vírgula
+    let parteEsquerda = numeroSemPontuacao.slice(0, -2);
+    let parteDireita = numeroSemPontuacao.slice(-2);
+
+    // Reconstroi o número com a vírgula na posição correta
+    let kanmaAns = parteEsquerda + '.' + parteDireita;
+
     data.value = `￥${kanmaAns}`;
   }
-}
+};*/
+
+async function kanmaReplase() {
+  let data = document.getElementById('value-input')
+  if (data.value.length == 1 && data.value != "￥") {
+    data.value = ("￥" + data.value)
+  } else {
+    let numberAns = (data.value.slice(1)).replace(/[^0-9]/g, "");
+    kanmaAns = numberAns.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+    data.value = `￥${kanmaAns}`
+  }
+  //return `￥${kanmaAns}`
+};
+
+
 
 function catgoryCard() {
   const category = `<div class="category-select-button" id="type11" onclick="selectType(11)">
@@ -198,9 +272,13 @@ function catgoryCard() {
   const categoryMain = document.querySelector('#type12');
 
   categoryMain.insertAdjacentHTML('beforebegin', category);
-}
+};
 
+
+
+//adcionar nova categoria----------------------------->
 function addkamoku() {
+
   const body = `
 <!DOCTYPE html>
 <html>
@@ -232,6 +310,7 @@ function addkamoku() {
     display: flex;
     overflow: scroll;
     overflow-y: hidden;
+    /* direction: rtl; /* Altera a direção para right-to-left */ */
     height: 90px;
     width: 100%;
   }
@@ -289,7 +368,7 @@ function addkamoku() {
         const img = `<li><img src="../image/img_renda/k${i}.png" width="40" /></li>`;
 
         areaIconSelected.insertAdjacentHTML('afterbegin', img);
-      }
+      };
 
       const li = document.querySelectorAll('li');
       const el = Array.from(li);
@@ -315,7 +394,7 @@ function addkamoku() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          "dtUser": workerid,
+          "dtUser": workerid, //alterar em produção
           "iconTag": iconTag,
           "dtCategoryName": categoryName,
           "dtCategoryStatus": "vip"
@@ -326,23 +405,31 @@ function addkamoku() {
           console.log("criado...");
           const categoriaDiv = document.querySelector('#btn-add');
           categoriaDiv.insertAdjacentHTML('beforebegin', res.tag_structured);
-        });
+        })
     }
-  });
+  })
+
+
+
+  //catgoryCard();
+
+  // swallErrorOpen("追加の権限がありません")
 }
 
 function dayChange(data) {
-  const dt = document.getElementById("calender-input");
-  const date = new Date(dt.value.split("-")[0], dt.value.split("-")[1] - 1, dt.value.split("-")[2]);
+  let dt = document.getElementById("calender-input")
+  let date = new Date(dt.value.split("-")[0], dt.value.split("-")[1] - 1, dt.value.split("-")[2]);
   if (data == 2) {
-    date.setDate(date.getDate() + 1);
+    date.setDate(date.getDate() + 1)
   } else {
-    date.setDate(date.getDate() - 1);
+    date.setDate(date.getDate() - 1)
   }
-  const dM = (("0" + (date.getMonth() + 1)).slice(-2));
-  const dd = (("0" + date.getDate()).slice(-2));
-  dt.value = `${date.getFullYear()}-${dM}-${dd}`;
+  let dM = (("0" + (date.getMonth() + 1)).slice(-2))
+  let dd = (("0" + date.getDate()).slice(-2))
+  dt.value = `${date.getFullYear()}-${dM}-${dd}`
 }
+
+//---------------dev_kledisom------------------------>
 
 function buscarCategorias() {
   fetch(`${bkUrl}/category/renda`, {
@@ -355,52 +442,71 @@ function buscarCategorias() {
     .then((x) => x.json())
     .then((res) => {
       listCategory(res);
-    });
+    })
 
   function listCategory(data) {
+
     data.map((tag) => {
       const categoriaDiv = document.querySelector('#btn-add');
       categoriaDiv.insertAdjacentHTML('beforebegin', tag.tag_structured);
-    });
+    })
+
   }
-}
+};
 
 buscarCategorias();
 
+///----------------deletar category---------------->
 var editorMode = false;
 
 const icoElement = document.querySelector('#ico-config');
+
 const icoElementX = document.querySelector('#ico-config-x');
 
 icoElementX.addEventListener('click', () => {
   icoElement.style.display = "flex";
   icoElementX.style.display = "none";
+
   window.location.reload();
+
+  // Remover classes de foco e destaque de todas as divs
   document.querySelectorAll('.div-comon-division-common, .category-main-div, .regist-button').forEach(divs => {
     divs.classList.remove('focus');
     divs.classList.remove('dim');
     document.querySelector('#btn-add').style.display = "flex";
+    console.log(divs);
   });
+
 });
 
 icoElement.addEventListener('click', () => {
+
   icoElement.style.display = "none";
   icoElementX.style.display = "block";
+
   Swal.fire('Clique na categoria de deseja excluir!');
+
+  // Adicionar classe de foco na div especificada
   const div = document.querySelector('.category-main-div');
   if (div.classList.contains('focus')) {
+    // Remover classes de foco e destaque de todas as divs
     document.querySelectorAll('.div-comon-division-common, .category-main-div, .regist-button').forEach(divs => {
       divs.classList.remove('focus');
       divs.classList.remove('dim');
       document.querySelector('#btn-add').style.display = "flex";
+      console.log(divs);
     });
   } else {
     div.classList.add('focus');
+
     document.querySelector('#btn-add').style.display = "none";
+
+    //--------------deletar categorias------------------------------->
     const elements = document.querySelectorAll('.category-select-button');
     elements.forEach((categoria) => {
       categoria.addEventListener('click', () => {
-        // const nomeCategoria = document.querySelector('.category-select-button');
+        let nomeCategoria = document.querySelector('.category-select-button');
+
         Swal.fire({
           text: `Você tem certeza que deseja deletar a categoria: ${categoria.children[1].children[0].innerText}`,
           width: '80%',
@@ -410,6 +516,7 @@ icoElement.addEventListener('click', () => {
         })
           .then((result) => {
             if (result.isConfirmed) {
+
               fetch(`${bkUrl}/category/renda/del`, {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" },
@@ -426,20 +533,28 @@ icoElement.addEventListener('click', () => {
                    <div class="category-select-button" id="btn-add" onclick="addkamoku(12)">
                     <img src='./image/icon_add.png' width="40"/>
                     <div><span>科目追加</span></div>
-                  </div>`;
+                  </div>`
                   document.querySelector('#btn-add').style.display = "none";
+
                   swallSuccess();
+
                   buscarCategorias();
+
+                  // Remover classes de foco e destaque de todas as divs
                   document.querySelectorAll('.div-comon-division-common, .category-main-div, .regist-button').forEach(divs => {
                     divs.classList.remove('focus');
                     divs.classList.remove('dim');
                     document.querySelector('#btn-add').style.display = "flex";
+                    console.log(divs);
                   });
-                });
+                })
             }
-          });
-      });
-    });
+          })
+      })
+    })
+
+
+    // Adicionar classe de destaque nas outras divs
     document.querySelectorAll('.div-comon-division-common, .category-main-div, .regist-button').forEach(div => {
       if (div !== document.querySelector('.category-main-div')) {
         div.classList.add('dim');
@@ -448,8 +563,11 @@ icoElement.addEventListener('click', () => {
   }
 });
 
+
+
 function quit() {
   sessionStorage.removeItem('id');
   sessionStorage.removeItem('name');
+
   window.location = "../../../views/loginadminrst.html";
-}
+};

@@ -1,7 +1,6 @@
-import Sequelize from 'sequelize';
-import database from '../db';
+const Sequelize = require('sequelize');
+const database = require('../db');
 
-// Definição do modelo Calender
 const Calender = database.define('calender', {
     id: {
         type: Sequelize.INTEGER,
@@ -10,77 +9,68 @@ const Calender = database.define('calender', {
         primaryKey: true
     },
 
-    // ID da academia
-    gymId: {
+    GYM_ID: {
         type: Sequelize.STRING(150),
         allowNull: false,
         unique: false,
         validate: {
             notEmpty: {
-                msg: "Esse campo não pode estar vazio."
+                msg: "Esse campo não pode está vazio.."
             },
         }
     },
 
-    // Dia
-    day: {
+    DAY: {
         type: Sequelize.STRING(150),
         allowNull: false,
         unique: false,
         validate: {
             notEmpty: {
-                msg: "Esse campo não pode estar vazio."
+                msg: "Esse campo não pode está vazio.."
             },
         }
     },
 
-    // Horário de início
-    startTime: {
+    START_TIME: {
         type: Sequelize.STRING(150),
         allowNull: false
     },
 
-    // Horário de término
-    finishTime: {
+    FINISH_TIME: {
         type: Sequelize.STRING(150),
         allowNull: false
     },
 
-    // Número da linha
-    lineNo: {
-        type: Sequelize.INTEGER,
+    LINE_NO: {
+        type: Sequelize.DECIMAL,
         allowNull: false
     },
 
-    // Descrição 1
-    description1: {
+    DESCRITION_1: {
         type: Sequelize.STRING(150),
         allowNull: false
     },
 
-    // Descrição 2
-    description2: {
+    DESCRITION_2: {
         type: Sequelize.STRING(150),
         allowNull: false
     },
 
-    // Imagem
-    image: {
+    IMAGE: {
         type: Sequelize.STRING(150),
         allowNull: false
     },
 
-    // Cor
-    color: {
+    COLOR: {
         type: Sequelize.STRING(150),
         allowNull: false
     },
     
-    // Flag de graduação
-    graduationFlag: {
-        type: Sequelize.INTEGER,
+      GRADUATION_FLUG: {
+        type: Sequelize.DECIMAL,
         allowNull: false
     },
+
 });
 
 module.exports = Calender;

@@ -9,65 +9,70 @@ const Clients = database.define('client', {
         primaryKey: true
     },
 
-    gymName: {
-        type: Sequelize.STRING,
+    GYM_NAME: {
+        unique: false,
+        type: Sequelize.STRING(150),
         allowNull: false,
-        validate: {
-            notEmpty: {
-                msg: "This field cannot be empty."
-            },
-        }
-    },
+        unique: true,
+        validate: {    
+         notEmpty: {
+            msg: "Esse campo não pode está vazio.."
+         },
+        } 
+    }, 
 
-    representative: {
-        type: Sequelize.STRING,
+    REPRESENTATIVE: {
+        unique: false,
+        type: Sequelize.STRING(150),
         allowNull: false,
-        validate: {
-            notEmpty: {
-                msg: "This field cannot be empty."
-            },
-        }
-    },
+        unique: true,
+        validate: {    
+         notEmpty: {
+            msg: "Esse campo não pode está vazio.."
+         },
+        } 
+    },   
 
-    uniqueCode: {
-        type: Sequelize.INTEGER,
+    UNIQUE_CODE: {
+        type:Sequelize.DECIMAL,
         allowNull: false
     },
 
-    password: {
-        type: Sequelize.STRING,
+    PASSWORD: {
+        type:Sequelize.STRING(150),
         allowNull: false
     },
 
-    address: {
-        type: Sequelize.STRING,
+    ADRESS: {
+        type:Sequelize.STRING(150),
         allowNull: false
     },
 
-    tel: {
-        type: Sequelize.STRING,
+    TEL: {
+        type:Sequelize.DECIMAL,
         allowNull: false
     },
 
-    email: {
-        type: Sequelize.STRING,
+    EMAIL: {
+        type:Sequelize.STRING(150),
         allowNull: false
     },
-
-    saveDay: {
-        type: Sequelize.STRING,
+   
+    SAVE_DAY: {
+        type:Sequelize.STRING(150),
         allowNull: false
     },
-
-    status: {
-        type: Sequelize.STRING,
+   
+    STATUS: {
+        type:Sequelize.STRING(150),
         allowNull: false
     },
-
-    language: {
-        type: Sequelize.STRING,
+   
+    LANGUAGE: {
+        type: Sequelize.STRING(150),
         allowNull: false
     }
+    
 });
 
 module.exports = Clients;

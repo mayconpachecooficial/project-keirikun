@@ -1,5 +1,5 @@
-import Sequelize from 'sequelize';
-import database from '../db';
+const Sequelize = require('sequelize');
+const database = require('../db');
 
 const Dakokus = database.define('dakoku', {
     id: {
@@ -23,4 +23,4 @@ const Dakokus = database.define('dakoku', {
     }
 });
 
-export default Dakokus;
+module.exports = Dakokus;

@@ -1,64 +1,53 @@
-import { DataTypes, Model } from 'sequelize';
-import database from '../db';
+const Sequelize = require('sequelize');
+const database = require('../db');
 
-class Inventory extends Model {}
-
-Inventory.init(
-  {
+const Inventorys = database.define('inventory', {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      allowNull: false,
-      primaryKey: true
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true
     },
-    restaurantId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    rest_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false
     },
     name: {
-      type: DataTypes.STRING(45),
+      type: Sequelize.STRING(45),
       unique: false,
     },
     quantity: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        min: 0
-      }
+        type: Sequelize.INTEGER,
+        allowNull: false
     },
     cust: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+        type: Sequelize.INTEGER,
+        allowNull: false
     },
-    updatedAt: {
-      type: DataTypes.STRING(45),
+    updt: {
+      type: Sequelize.STRING(45),
       unique: false,
     },
-    category: {
-      type: DataTypes.STRING(45),
+    categorys: {
+      type: Sequelize.STRING(45),
       unique: false,
-    },
+    } ,
     mercado: {
-      type: DataTypes.STRING(45),
+      type: Sequelize.STRING(45),
       unique: false,
     },
     kijun: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+        type: Sequelize.INTEGER,
+        allowNull: false
     },
-    tani: {
-      type: DataTypes.STRING(45),
+    tani:{
+        type: Sequelize.STRING(45),
       unique: false
     },
-    supplierId: {
-      type: DataTypes.INTEGER,
+    suplires_id:{
+      type: Sequelize.INTEGER,
       allowNull: false
     }
-  },
-  {
-    sequelize: database,
-    modelName: 'inventory'
-  }
-);
+});
 
-export default Inventory;
+module.exports = Inventorys;

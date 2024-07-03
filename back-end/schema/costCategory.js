@@ -1,5 +1,5 @@
-import Sequelize from 'sequelize';
-import database from '../db';
+const Sequelize = require('sequelize');
+const database = require('../db');
 
 const Costcategory = database.define('costCategory', {
     id: {
@@ -31,4 +31,4 @@ const Costcategory = database.define('costCategory', {
     }
 });
 
-export default Costcategory;
+module.exports = Costcategory;

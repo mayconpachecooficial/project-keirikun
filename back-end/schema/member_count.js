@@ -1,5 +1,5 @@
-import Sequelize from 'sequelize';
-import database from '../db';
+const Sequelize = require('sequelize');
+const database = require('../db');
 
 const MembersCount = database.define('member_count', {
     id: {
@@ -29,4 +29,4 @@ const MembersCount = database.define('member_count', {
     },
 });
 
-export default MembersCount;
+module.exports = MembersCount;

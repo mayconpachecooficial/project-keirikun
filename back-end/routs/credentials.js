@@ -1,5 +1,6 @@
 //credentials.js
 
+//+------------------------------------------------------------------------------------+
 const credentials = {
     production: {
         accessToken: 'EAAAF3ZlmIUK5DR7uZ5tidme48j06k3E6TPhhaWKaC5QsDjtTdk6TTG_Q7eGIxZB',
@@ -10,6 +11,7 @@ const credentials = {
         accessToken: 'EAAAEK3nRLSUgZYRM2p6zM_zagPzjK8Rz-Yv9kWT25NdHlKroUKluPVFuAv1L3gG',
         locationId: 'LCQMDCCX3TX66',
     }
-};
 
-export default credentials;
+};
+//+------------------------------------------------------------------------------------+
+module.exports = credentials;

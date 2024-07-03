@@ -1,5 +1,5 @@
-import Sequelize from 'sequelize';
-import database from '../db';
+const Sequelize = require('sequelize');
+const database = require('../db');
 
 const Entrance = database.define('entrance', {
     id: {
@@ -12,9 +12,10 @@ const Entrance = database.define('entrance', {
     LESSON_NAME: {
         type: Sequelize.STRING(150),
         allowNull: false,
+        
         validate: {
             notEmpty: {
-                msg: "Esse campo não pode estar vazio."
+                msg: "Esse campo não pode está vazio.."
             },
         }
     },
@@ -22,9 +23,10 @@ const Entrance = database.define('entrance', {
     LESSON_HOUR: {
         type: Sequelize.STRING(150),
         allowNull: false,
+        
         validate: {
             notEmpty: {
-                msg: "Esse campo não pode estar vazio."
+                msg: "Esse campo não pode está vazio.."
             },
         }
     },
@@ -32,9 +34,10 @@ const Entrance = database.define('entrance', {
     MEMBER_ID: {
         type: Sequelize.DECIMAL,
         allowNull: false,
+       
         validate: {
             notEmpty: {
-                msg: "Esse campo não pode estar vazio."
+                msg: "Esse campo não pode está vazio.."
             },
         }
     },
@@ -53,6 +56,7 @@ const Entrance = database.define('entrance', {
         type: Sequelize.STRING(150),
         allowNull: false,
     },
+
 });
 
-export default Entrance;
+module.exports = Entrance;

@@ -1,5 +1,5 @@
-import Sequelize from 'sequelize';
-import database from '../db';
+const Sequelize = require('sequelize');
+const database = require('../db');
 
 const RestClients = database.define('restClient', {
     id: {
@@ -8,51 +8,56 @@ const RestClients = database.define('restClient', {
         allowNull: false,
         primaryKey: true
     },
-    name: {
+    name: {unique: false,
         type: Sequelize.STRING(150),
         allowNull: false,
+        unique: false,
         validate: {
-            notEmpty: {
-                msg: "Esse campo não pode estar vazio."
-            }
+         notEmpty: {
+            msg: "Esse campo não pode está vazio.."
+         },
         }
     },
-    phone: {
+    phone: {unique: false,
         type: Sequelize.STRING(150),
         allowNull: false,
+        unique: false,
         validate: {
-            notEmpty: {
-                msg: "Esse campo não pode estar vazio."
-            }
+         notEmpty: {
+            msg: "Esse campo não pode está vazio.."
+         },
         }
     },
-    address: {
+    adress: {unique: false,
         type: Sequelize.STRING(150),
         allowNull: false,
+        unique: false,
         validate: {
-            notEmpty: {
-                msg: "Esse campo não pode estar vazio."
-            }
+         notEmpty: {
+            msg: "Esse campo não pode está vazio.."
+         },
         }
     },
-    post: {
+    post: {unique: false,
         type: Sequelize.STRING(150),
         allowNull: false,
+        unique: false,
         validate: {
-            notEmpty: {
-                msg: "Esse campo não pode estar vazio."
-            }
+         notEmpty: {
+            msg: "Esse campo não pode está vazio.."
+         },
         }
     },
-    password: {
+      password: {unique: false,
         type: Sequelize.STRING(150),
         allowNull: false,
+        unique: false,
         validate: {
-            notEmpty: {
-                msg: "Esse campo não pode estar vazio."
-            }
+         notEmpty: {
+            msg: "Esse campo não pode está vazio.."
+         },
         }
     }
 });
 
-export default RestClients;
+module.exports = RestClients;

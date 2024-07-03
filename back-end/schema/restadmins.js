@@ -1,5 +1,5 @@
-import Sequelize from 'sequelize';
-import database from '../db';
+const Sequelize = require('sequelize');
+const database = require('../db');
 
 const Restadmins = database.define('restadmin', {
     id: {
@@ -52,4 +52,4 @@ const Restadmins = database.define('restadmin', {
     }
 });
 
-export default Restadmins;
+module.exports = Restadmins;
