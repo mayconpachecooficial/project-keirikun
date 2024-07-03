@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize');
-const database = require('../db');
+import Sequelize from 'sequelize';
+import database from '../db';
 
 const Parents = database.define('parent', {
     id: {
@@ -8,36 +8,29 @@ const Parents = database.define('parent', {
         allowNull: false,
         primaryKey: true
     },
-    family_name: {unique: false,
+    family_name: {
         type: Sequelize.STRING(150),
         allowNull: false,
-        unique: false,
         validate: {
-         notEmpty: {
-            msg: "Esse campo não pode está vazio.."
-         },
+            notEmpty: {
+                msg: "Esse campo não pode estar vazio."
+            }
         }
     },
     birthday: Sequelize.STRING(150),
-
     birthday_age: Sequelize.STRING(150),
-
     gender: {
-        type:Sequelize.STRING(150),
-        allowNull: false
-    },
-
-     gymid: {
         type: Sequelize.STRING(150),
         allowNull: false
     },
-
+    gymid: {
+        type: Sequelize.STRING(150),
+        allowNull: false
+    },
     nm_member_id: {
         type: Sequelize.INTEGER,
-         allowNull: false,
+        allowNull: false
     }
-
-
 });
 
-module.exports = Parents;
+export default Parents;

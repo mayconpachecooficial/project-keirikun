@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize');
-const database = require('../db');
+import Sequelize from 'sequelize';
+import database from '../db';
 
 const Finence_categorys = database.define('finence_category', {
     id: {
@@ -32,4 +32,4 @@ const Finence_categorys = database.define('finence_category', {
 
 });
 
-module.exports = Finence_categorys;
+export default Finence_categorys;

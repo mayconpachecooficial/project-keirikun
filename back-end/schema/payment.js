@@ -1,45 +1,39 @@
-const Sequelize = require('sequelize');
-const database = require('../db');
+import Sequelize from 'sequelize';
+import database from '../db';
 
 const Payment = database.define('payments', {
     id: {
         type: Sequelize.INTEGER,
+        primaryKey: true,
         autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
+        allowNull: false
     },
-
     nm_member_id: {
         type: Sequelize.DECIMAL,
         allowNull: false,
         unique: false,
         validate: {
             notEmpty: {
-                msg: "Esse campo não pode está vazio.."
-            },
+                msg: "Esse campo não pode estar vazio."
+            }
         }
     },
-
     nm_member: {
         type: Sequelize.STRING(150),
         allowNull: false
     },
-
     year: {
         type: Sequelize.STRING(150),
         allowNull: false
     },
-
     month: {
         type: Sequelize.STRING(150),
         allowNull: false
     },
-
     division: {
-       type: Sequelize.DECIMAL,
-       allowNull: false
-      },
-   
+        type: Sequelize.DECIMAL,
+        allowNull: false
+    },
     obs: {
         type: Sequelize.STRING(150),
         allowNull: false
@@ -48,23 +42,20 @@ const Payment = database.define('payments', {
         type: Sequelize.STRING(150),
         allowNull: false
     },
-
     plan_value: {
         type: Sequelize.STRING(150),
         allowNull: false
     },
-    
-    GYM_ID: {
+    gym_id: {
         type: Sequelize.STRING(150),
         allowNull: false,
         unique: false,
         validate: {
             notEmpty: {
-                msg: "Esse campo não pode está vazio.."
-            },
+                msg: "Esse campo não pode estar vazio."
+            }
         }
-    },
-
+    }
 });
 
-module.exports = Payment;
+export default Payment;

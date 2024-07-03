@@ -1,4 +1,4 @@
-module.exports = {
+export const smtpConfig = {
     host: "smtp.gmail.com",
     port: 465,
     auth: {

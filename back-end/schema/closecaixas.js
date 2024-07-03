@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize');
-const database = require('../db');
+import Sequelize from 'sequelize';
+import database from '../db';
 
 const CloseCaixas = database.define('closecaixa', {
     id: {
@@ -16,7 +16,7 @@ const CloseCaixas = database.define('closecaixa', {
       type: Sequelize.STRING(45),
       unique: false,
     },
-    crete_id: {
+    create_id: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
@@ -50,4 +50,4 @@ const CloseCaixas = database.define('closecaixa', {
     }
 });
 
-module.exports = CloseCaixas;
+export default CloseCaixas;

@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize');
-const database = require('../db');
+import Sequelize from 'sequelize';
+import database from '../db';
 
 const RestMenus = database.define('restmenu', {
     id: {
@@ -95,4 +95,4 @@ const RestMenus = database.define('restmenu', {
     },
 });
 
-module.exports = RestMenus;
+export default RestMenus;

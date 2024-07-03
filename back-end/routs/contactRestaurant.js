@@ -1,37 +1,35 @@
-const nodemailer = require('nodemailer');
-
-const SMTP_CONFIG = require('./config/smtp');
+import nodemailer from 'nodemailer';
+import SMTP_CONFIG from './config/smtp';
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
-    secure: false,
     auth: {
         user: SMTP_CONFIG.auth.user,
         pass: SMTP_CONFIG.auth.pass
-
-    },
-    tls: {
-        rejectUnauthorized: false,
     }
 });
 
-module.exports = async function restaurant(name,tel,email,mens) {
-
-    //variaveis do corpo de envio do email com variação de idiomas para o novo aluno
-
-      const mailSentPT = await transporter.sendMail({
-        from: '"YK technology"" <signatureprojectjp@gmail.com>',
-        to: ['paurozhiyuan@gmail.com','rootsgrillhekinan@gmail.com'],
-        subject: `Aviso sobre contato pelo website`,
-        text: `Prezado cliente
+export default async function restaurant(name, tel, email, mens) {
+    const mailOptions = {
+        from: '"YK technology" <signatureprojectjp@gmail.com>',
+        to: ['paurozhiyuan@gmail.com', 'rootsgrillhekinan@gmail.com'],
+        subject: 'Aviso sobre contato pelo website',
+        text: `Prezado cliente,
 
         ${name} entrou em contato através do web site.
 
-        Nome:${name}
-        Telefone:${tel}
-        E-mail:${email}
-        Menssagem:${mens}
+        Nome: ${name}
+        Telefone: ${tel}
+        E-mail: ${email}
+        Menssagem: ${mens}
 
-        YK technology`,
-    });
+        YK technology`
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log('Email sent successfully');
+    } catch (error) {
+        console.error('Error sending email:', error);
+    }
 };

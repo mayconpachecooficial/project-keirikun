@@ -1,53 +1,64 @@
-const Sequelize = require('sequelize');
-const database = require('../db');
+import { DataTypes, Model } from 'sequelize';
+import database from '../db';
 
-const Inventorys = database.define('inventory', {
+class Inventory extends Model {}
+
+Inventory.init(
+  {
     id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true
     },
-    rest_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+    restaurantId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
     name: {
-      type: Sequelize.STRING(45),
+      type: DataTypes.STRING(45),
       unique: false,
     },
     quantity: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0
+      }
     },
     cust: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
-    updt: {
-      type: Sequelize.STRING(45),
+    updatedAt: {
+      type: DataTypes.STRING(45),
       unique: false,
     },
-    categorys: {
-      type: Sequelize.STRING(45),
+    category: {
+      type: DataTypes.STRING(45),
       unique: false,
-    } ,
+    },
     mercado: {
-      type: Sequelize.STRING(45),
+      type: DataTypes.STRING(45),
       unique: false,
     },
     kijun: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
-    tani:{
-        type: Sequelize.STRING(45),
+    tani: {
+      type: DataTypes.STRING(45),
       unique: false
     },
-    suplires_id:{
-      type: Sequelize.INTEGER,
+    supplierId: {
+      type: DataTypes.INTEGER,
       allowNull: false
     }
-});
+  },
+  {
+    sequelize: database,
+    modelName: 'inventory'
+  }
+);
 
-module.exports = Inventorys;
+export default Inventory;

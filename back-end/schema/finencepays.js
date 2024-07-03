@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize');
-const database = require('../db');
+import { Sequelize } from 'sequelize';
+import database from '../db';
 
 const Finencepays = database.define('finencepay', {
     id: {
@@ -44,4 +44,4 @@ const Finencepays = database.define('finencepay', {
 
 });
 
-module.exports = Finencepays;
+export default Finencepays;
