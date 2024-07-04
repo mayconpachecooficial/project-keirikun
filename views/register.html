@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+<head>
+  <meta charset="utf-8" name="viewport" content="width=device-width">
+  <title>Registro</title>
+  <link rel="stylesheet" type="text/css" href="../style/register.css" />
+</head>
+
+<body>
+  <div id="register-div">
+    <h1>Registro</h1>
+    <form id="register-form">
+      <label for="name">Nome:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">E-mail:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password" required>
+
+      <label for="confirm-password">Confirmar Senha:</label>
+      <input type="password" id="confirm-password" name="confirm-password" required>
+
+      <button type="submit">Registrar</button>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="../script/register.js"></script>
+</body>
+</html>
