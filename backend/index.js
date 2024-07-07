@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const port = process.env.PORT || 3000;;
-var rout = require('./routs/Routes');
+var routes = require('./routes/Routes');
+const signupRouter = require('./routes/ noauth/signup.router');
 app.set('view engine', 'ejs');
 app.set('views', './views');
 app.use(express.static(path.join(__dirname, "public")));
@@ -18,24 +19,24 @@ app.use(cors());
  app.use(bodyParser.urlencoded({ extended: true }));
  // Express modules / packages
 
-app.use('/', rout);
-app.use('/ejs', rout);
-app.use('/member', rout);
-app.use('/mailer', rout);
-app.use('/img', rout);
-app.use('/pdf', rout);
-app.use('/list', rout);
-app.use('/listUpdate', rout);
-app.use('/listDelete', rout);
-app.use('/calender', rout);
-app.use('/calenderteste', rout);
-app.use('/calender/entrance', rout);
-app.use('/registerEntrance', rout);
-app.use('/pass', rout);
-app.use('/planget', rout);
-app.use('/lesson_after/:id', rout);
+app.use('/', routes);
+app.use('/ejs', routes);
+app.use('/member', routes);
+app.use('/mailer', routes);
+app.use('/img', routes);
+app.use('/pdf', routes);
+app.use('/list', routes);
+app.use('/listUpdate', routes);
+app.use('/listDelete', routes);
+app.use('/calender', routes);
+app.use('/calenderteste', routes);
+app.use('/calender/entrance', routes);
+app.use('/registerEntrance', routes);
+app.use('/pass', routes);
+app.use('/planget', routes);
+app.use('/lesson_after/:id', routes);
 
-
+app.use('/noauth', signupRouter)
 
 app.listen(port, () => { // Listen on port 3000
     console.log(`Listening! in port: ${port}`); // Log when listen success
