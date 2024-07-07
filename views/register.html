@@ -64,19 +64,11 @@
             })
             .then(response => response.json())
             .then(data => {
-<<<<<<< HEAD
                 document.getElementById('loader').style.display = 'none';
                 if (data.error && data.error === 'User already exists') {
                     showModal('Usuário já cadastrado em nosso banco de dados.');
                 } else {
                     showModal('Cadastro realizado com sucesso!', true);
-=======
-                if (data.error && data.error === 'User already exists') {
-                    alert('Usuário já cadastrado em nosso banco de dados.');
-                } else {
-                    console.log('Success:', data);
-                    alert('Cadastro realizado com sucesso!');
->>>>>>> e9120b8b5cbc82f917ff576e1751609e010730c5
                 }
             })
             .catch((error) => {
