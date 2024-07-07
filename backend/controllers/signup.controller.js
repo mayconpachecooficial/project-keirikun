@@ -1,27 +1,31 @@
-const userService = require("../services/user.service")
+const signupDto = require('../dto/signup.dto')
+const userService = require('../services/user.service')
 
 const signupController = {
     signup: async (request, response) => {
         try {
-            const { name, email, password } = request.body
+            const { error, value: payload } = signupDto.validate(request.body)
 
-            if (!name) {
-                return response.status(400).send({ success: false, message: 'Name is required.'})
+            if (error) {
+                return response.status(400).send({ success: false, error : error.details })
             }
 
-            if (!email) {
-                return response.status(400).send({ success: false, message: 'Email is required.' })
+            const [userByEmail, userByUsername] = await Promise.all([
+                userService.getByEmail(payload.email),
+                userService.getByUsername(payload.username)
+            ])
+
+            if (userByEmail) {
+                return response.status(409).send({ success: false, message: 'Email already exist.'})
             }
 
-            if (!password) {
-                return response.status(400).send({ success: false, message: 'Password is required.' })
+            if (userByUsername) {
+                return response.status(409).send({ success: false, message: 'Username already exist.'})
             }
 
+            await userService.create(payload)
 
-            await userService.create({name, email, password})
-
-            return response.status(201).send({ success: true, message: 'User created'})
-
+            return response.status(201).send({ success: true, message: 'User created.'})
         }
 
         catch (error) {
@@ -30,6 +34,5 @@ const signupController = {
         }
     }
 }
-
 
 module.exports = signupController
