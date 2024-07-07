@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style/register.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-
     <title>ユーザー登録</title>
-
 </head>
 <body>
     <div class="container">
@@ -56,8 +54,12 @@
             })
             .then(response => response.json())
             .then(data => {
-                console.log('Success:', data);
-                alert('Cadastro realizado com sucesso!');
+                if (data.error && data.error === 'User already exists') {
+                    alert('Usuário já cadastrado em nosso banco de dados.');
+                } else {
+                    console.log('Success:', data);
+                    alert('Cadastro realizado com sucesso!');
+                }
             })
             .catch((error) => {
                 console.error('Error:', error);
