@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style/register.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-
     <title>ユーザー登録</title>
 
 </head>
@@ -29,15 +28,25 @@
         </form>
     </div>
 
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modalText"></p>
+        </div>
+    </div>
+
+    <div class="loader" id="loader"></div>
+
     <script>
         document.getElementById('signupForm').addEventListener('submit', function(event) {
             event.preventDefault();
-
+            document.getElementById('loader').style.display = 'block';
+    
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             const email = document.getElementById('email').value;
             const language = document.getElementById('language').value;
-
+    
             const data = {
                 username: username,
                 password: password,
@@ -45,7 +54,7 @@
                 isActive: true,
                 language: language
             };
-
+    
             fetch('http://localhost:3000/noauth/signup', {
                 method: 'POST',
                 headers: {
@@ -56,14 +65,41 @@
             })
             .then(response => response.json())
             .then(data => {
-                console.log('Success:', data);
-                alert('Cadastro realizado com sucesso!');
+                document.getElementById('loader').style.display = 'none';
+                if (data.error && data.error === 'User already exists') {
+                    showModal('Usuário já cadastrado em nosso banco de dados.');
+                } else {
+                    showModal('Cadastro realizado com sucesso!', true);
+                }
             })
             .catch((error) => {
+                document.getElementById('loader').style.display = 'none';
+                showModal('Ocorreu um erro ao realizar o cadastro.');
                 console.error('Error:', error);
-                alert('Ocorreu um erro ao realizar o cadastro.');
             });
         });
+    
+        function showModal(text, success = false) {
+            var modal = document.getElementById("myModal");
+            var span = document.getElementsByClassName("close")[0];
+            document.getElementById("modalText").innerText = text;
+            modal.style.display = "block";
+            span.onclick = function() {
+                modal.style.display = "none";
+                if (success) {
+                    window.location.href = '../views/loginadminrst.html';
+                }
+            }
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                    if (success) {
+                        window.location.href = '../views/loginadminrst.html';
+                    }
+                }
+            }
+        }
     </script>
+    
 </body>
 </html>
