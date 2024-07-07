@@ -1,5 +1,6 @@
 const signupDto = require('../dto/signup.dto')
 const userService = require('../services/user.service')
+const { encryptPassword } = require('../libs/encypt/password-crypto')
 
 const signupController = {
     signup: async (request, response) => {
@@ -23,7 +24,9 @@ const signupController = {
                 return response.status(409).send({ success: false, message: 'Username already exist.'})
             }
 
-            await userService.create(payload)
+            const passwordEncrypted = await encryptPassword(payload.password)
+
+            await userService.create({ ...payload, password: passwordEncrypted })
 
             return response.status(201).send({ success: true, message: 'User created.'})
         }
