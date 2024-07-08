@@ -6,6 +6,7 @@ const path = require('path');
 const port = process.env.PORT || 3000;;
 var routes = require('./routes/Routes');
 const signupRouter = require('./routes/ noauth/signup.router');
+const signinRouter = require('./routes/ noauth/signin.router');
 app.set('view engine', 'ejs');
 app.set('views', './views');
 app.use(express.static(path.join(__dirname, "public")));
@@ -36,7 +37,7 @@ app.use('/pass', routes);
 app.use('/planget', routes);
 app.use('/lesson_after/:id', routes);
 
-app.use('/noauth', signupRouter)
+app.use('/noauth', signupRouter, signinRouter)
 
 app.listen(port, () => { // Listen on port 3000
     console.log(`Listening! in port: ${port}`); // Log when listen success

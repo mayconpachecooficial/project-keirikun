@@ -6,15 +6,19 @@ const userService = {
     },
 
     getByUsername: async (username) => {
-        return await Users.findOne({
+        const user = await Users.findOne({
             where: { username }
         })
+
+        return user ? user.dataValues : user
     },
 
     getByEmail: async (email) => {
-        return await Users.findOne({
+        const user = await Users.findOne({
             where: { email }
         })
+
+        return user ? user.dataValues : user
     }
 }
 
