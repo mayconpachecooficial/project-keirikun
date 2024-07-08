@@ -1,4 +1,5 @@
 let accessmainserver = global.urlApi; //メインサーバーのチェックアクセス先
+
 let user;
 let password;
 let errormessage;
@@ -7,7 +8,7 @@ let isLoading = false; // Variável para controlar o estado de carregamento
 document.getElementById("login-bottom").addEventListener("click", login_check); //ログインボタンクリック時の操作
 
 //ログイン情報の確認をする処理、IDが空白かどうか、その後PASSがくうはくかどうか、TRUEの場合Swal処理
-function login_check(user, password) {
+async function login_check(user, password) {
   console.log('in');
   user = document.getElementById("user").value; //ユーザー名
   password = document.getElementById("pass").value; //パスワード
@@ -22,15 +23,43 @@ function login_check(user, password) {
     } else {
       if (!isLoading) { // Verifica se não está carregando
         showLoading(); // Exibe o carregamento
-        login_request(user, password); // Chama a função de login passando login e senha
+        signin({email: user, password})
       }
     }
   }
 }
 
+async function signin(payload) {
+  let urlBase = accessmainserver
+
+
+  if (window.location.href.includes('/localhost') || window.location.href.includes('http://127.0.0.1:5500')) {
+    urlBase = 'http://localhost:3000' 
+  }
+  
+  axios.post(`${urlBase}/noauth/signin`, payload, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  
+  .then((response) =>{
+    if (response.data.success) {
+      const { token } = response.data.info
+
+      window.localStorage.setItem('token', token)
+    }
+  })
+
+  .catch(error => {
+    alert('Erro ao logar')
+    console.error(error)
+  })
+}
+
 //validar dados
 async function login_request(user, password) {
-  await axios.post(accessmainserver + '/authRestmember', {
+  await axios.post(`${accessmainserver}/noauth/signin`, {
     numbers: user,
     password: password
   })
