@@ -1,41 +1,43 @@
+let accessmainserver = global.urlApi; // URL base da API
 
-let accessmainserver = global.urlApi;　　//メインサーバーのチェックアクセス先
-let user
-let password
-let errormessage
-document.getElementById("login-bottom").addEventListener("click", login_check)//ログインボタンクリック時の操作
-//ログイン情報の確認をする処理、IDが空白かどうか、その後PASSがくうはくかどうか、TRUEの場合Swal処理
+let user;
+let password;
+let errormessage;
+
+document.getElementById("login-bottom").addEventListener("click", login_check); // Adiciona um evento de clique no botão de login
+
+// Função que verifica se os campos de usuário e senha foram preenchidos
 function login_check(user, password) {
-  console.log('in')
-  user = document.getElementById("user").value;　　　　//ユーザー名
-  password = document.getElementById("pass").value;　 //パスワード
+  console.log('in');
+  user = document.getElementById("user").value; // Obtém o valor do campo de usuário
+  password = document.getElementById("pass").value; // Obtém o valor do campo de senha
 
   if (user == "") {
-    errormessage = "Enter your username"
-    swallopen(errormessage)
+    errormessage = "Enter your username";
+    swallopen(errormessage);
   } else {
     if (password == "") {
-      errormessage = "Enter your password"
-      swallopen(errormessage)
+      errormessage = "Enter your password";
+      swallopen(errormessage);
     } else {
-      login_request(user, password) //chamar função de login passando login e senha
+      login_request(user, password); // Chama a função de login com os valores de usuário e senha
     }
   }
 }
-//validar dados
+
+// Função que faz a requisição de login para a API
 async function login_request(user, password) {
   await axios.post(accessmainserver + '/authRestmember', {
-    numbers: user,
-    password: password
+    numbers: user, // Envia o usuário como "numbers"
+    password: password // Envia a senha
   })
     .then((response) => {
-      console.log(response.data.obj[0].user)
+      console.log(response.data.obj[0].user);
       if (response.status == 200) {
         if (response.data.success) {
-          sessionStorage.setItem("name", response.data.obj[0].user)
-          sessionStorage.setItem("id", response.data.obj[0].id)
-          //sessionStorage.setItem("restid", response.data[0].rest_id)
-          window.location = `../index.html`;
+          sessionStorage.setItem("name", response.data.obj[0].user);
+          sessionStorage.setItem("id", response.data.obj[0].id);
+          window.location = `../index.html`; // Redireciona para a página index.html após o login bem-sucedido
         }
       } else {
         errormessage = "Check username and password";
@@ -48,8 +50,9 @@ async function login_request(user, password) {
       document.getElementById("pass").value = "";
       swallopen(errormessage);
     });
-};
+}
 
+// Função que exibe uma mensagem de erro usando a biblioteca SweetAlert2
 function swallopen() {
   Swal.fire({
     title: 'Error',
@@ -65,8 +68,7 @@ function swallopen() {
       Swal.fire({
         icon: "success",
         title: 'concluido',
-      }
-      )
+      });
     }
   });
 }
