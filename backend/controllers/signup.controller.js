@@ -1,6 +1,7 @@
 const signupDto = require('../dto/signup.dto')
 const userService = require('../services/user.service')
 const { encryptPassword } = require('../libs/encypt/password-crypto')
+const jwt = require('jsonwebtoken')
 
 const signupController = {
     signup: async (request, response) => {
@@ -26,9 +27,12 @@ const signupController = {
 
             const passwordEncrypted = await encryptPassword(payload.password)
 
-            await userService.create({ ...payload, password: passwordEncrypted })
+            const newUser = await userService.create({ ...payload, password: passwordEncrypted })
 
-            return response.status(201).send({ success: true, message: 'User created.'})
+            const secretKey = 'abracadabra'
+            const token = jwt.sign({ userId: newUser.id }, secretKey)
+
+            return response.status(201).send({ success: true, info: { token }, message: 'User created.'})
         }
 
         catch (error) {
