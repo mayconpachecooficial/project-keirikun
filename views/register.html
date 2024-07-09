@@ -1,42 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja-JP">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style/register.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <title>ユーザー登録</title>
+  <meta charset="utf-8" name="viewport" content="width=device-width">
+  <title>ユーザー登録</title>
+  <link rel="stylesheet" href="../style/register.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h2>Cadastro de Usuário</h2>
-        <form id="signupForm">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required>
+  <div class="container">
+    <h2>Cadastro de Usuário</h2>
+    <form id="signupForm">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required>
 
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
 
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
 
-            <label for="language">Language</label>
-            <input type="text" id="language" name="language" required>
+      <label for="language">Language</label>
+      <input type="text" id="language" name="language" required>
 
-            <input type="submit" value="Cadastrar">
-        </form>
+      <input type="submit" value="Cadastrar">
+    </form>
+    <p>Já tem cadastro? <a href="loginadminrst.html">Faça o login</a></p>
+  </div>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p id="modalText"></p>
     </div>
+  </div>
 
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p id="modalText"></p>
-        </div>
-    </div>
+  <div class="loader" id="loader"></div>
 
-    <div class="loader" id="loader"></div>
-
-<script src="../script/register.js"></script>
-    
+  <script src="../script/register.js"></script>
 </body>
 </html>

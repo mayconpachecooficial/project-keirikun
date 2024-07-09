@@ -30,11 +30,10 @@ async function login_check(user, password) {
 }
 
 async function signin(payload) {
-  let urlBase = accessmainserver
-
+  let urlBase = accessmainserver;
 
   if (window.location.href.includes('/localhost') || window.location.href.includes('http://127.0.0.1:5500')) {
-    urlBase = 'http://localhost:3000' 
+    urlBase = 'http://localhost:3000';
   }
   
   axios.post(`${urlBase}/noauth/signin`, payload, {
@@ -42,49 +41,25 @@ async function signin(payload) {
       'Content-Type': 'application/json'
     }
   })
-  
   .then((response) =>{
     if (response.data.success) {
-      const { token } = response.data.info
-
-      window.localStorage.setItem('token', token)
-    }
-  })
-
-  .catch(error => {
-    alert('Erro ao logar')
-    console.error(error)
-  })
-}
-
-//validar dados
-async function login_request(user, password) {
-  await axios.post(`${accessmainserver}/noauth/signin`, {
-    numbers: user,
-    password: password
-  })
-    .then((response) => {
-      console.log(response.data.obj[0].user);
-      if (response.status == 200) {
-        if (response.data.success) {
-          sessionStorage.setItem("name", response.data.obj[0].user);
-          sessionStorage.setItem("id", response.data.obj[0].id);
-          //sessionStorage.setItem("restid", response.data[0].rest_id)
-          window.location = `../index.html`;
-        }
-      } else {
-        errormessage = "Check username and password";
-        document.getElementById("pass").value = "";
-        swallopen(errormessage);
-      }
+      const { token } = response.data.info;
+      window.localStorage.setItem('token', token);
       hideLoading(); // Oculta o carregamento
-    })
-    .catch(() => {
+      alert('Conectado com sucesso'); // Mensagem de sucesso
+      window.location.href = 'history_despesas.html'; // Redireciona para renda.html
+    } else {
       errormessage = "Check username and password";
       document.getElementById("pass").value = "";
       swallopen(errormessage);
       hideLoading(); // Oculta o carregamento
-    });
+    }
+  })
+  .catch(error => {
+    alert('Usuário não encontrado ou Senha Incorreta');
+    console.error(error);
+    hideLoading(); // Oculta o carregamento
+  });
 }
 
 function swallopen() {
